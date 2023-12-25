@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { View, TextInput } from 'react-native';
-import { Button, Text, SegmentedButton } from 'react-native-paper';
-import styles from '../styles';
+import { Button, Text } from 'react-native-paper';
+import SegmentedControl from '@react-native-community/segmented-control';
+import styles from './styles';
 
 const Calculator = () => {
   const [num1, setNum1] = useState('');
   const [num2, setNum2] = useState('');
-  const [operation, setOperation] = useState('');
+  const [operationIndex, setOperationIndex] = useState(0);
   const [result, setResult] = useState('');
 
+  const operations = ['+', '-', '*', '/'];
+
   const calculate = () => {
+    const selectedOperation = operations[operationIndex];
     let res;
-    switch (operation) {
+
+    switch (selectedOperation) {
       case '+':
         res = parseFloat(num1) + parseFloat(num2);
         break;
       case '-':
         res = parseFloat(num1) - parseFloat(num2);
         break;
-      case 'x':
+      case '*':
         res = parseFloat(num1) * parseFloat(num2);
         break;
       case '/':
@@ -27,6 +32,7 @@ const Calculator = () => {
       default:
         res = '';
     }
+
     setResult(res.toString());
   };
 
@@ -39,16 +45,11 @@ const Calculator = () => {
         value={num1}
         onChangeText={(text) => setNum1(text)}
       />
-      <SegmentedButton
+      <SegmentedControl
         style={styles.segmentedButton}
-        value={operation}
-        onValueChange={(value) => setOperation(value)}
-        buttons={[
-          { label: '+', value: '+' },
-          { label: '-', value: '-' },
-          { label: 'x', value: 'x' },
-          { label: '/', value: '/' },
-        ]}
+        values={operations}
+        selectedIndex={operationIndex}
+        onChange={(event) => setOperationIndex(event.nativeEvent.selectedSegmentIndex)}
       />
       <TextInput
         style={styles.input}

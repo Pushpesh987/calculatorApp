@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '80%',
+    maxWidth: 300,
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
@@ -16,9 +17,12 @@ const styles = StyleSheet.create({
   },
   segmentedButton: {
     width: '80%',
+    maxWidth: 300,
     marginBottom: 20,
   },
   calculateButton: {
+    width: '80%',
+    maxWidth: 300,
     marginBottom: 20,
   },
   result: {
